@@ -1,5 +1,51 @@
 package com.codifica.atividade.service;
 
-public class PedidoService {
+import com.codifica.atividade.adapter.TransportadoraExternaAdapter;
+import com.codifica.atividade.external.TransportadoraExternaAPI;
+import com.codifica.atividade.observer.EmailObserver;
+import com.codifica.atividade.observer.PedidoObserver;
+import com.codifica.atividade.observer.SmsObserver;
+import com.codifica.atividade.strategy.EntregaEconomicaStrategy;
+import com.codifica.atividade.strategy.EntregaExpressaStrategy;
+import com.codifica.atividade.strategy.EntregaStrategy;
+import com.codifica.atividade.strategy.EntregaTercerizadaStrategy;
 
+import java.util.ArrayList;
+import java.util.List;
+
+public class PedidoService {
+    private List<PedidoObserver> observadores;
+
+    public EntregaService() {
+        this.observadores = new ArrayList<>();
+        this.observadores.add(new EmailObserver());
+        this.observadores.add(new SmsObserver());
+    }
+
+    public double calcularFrete(double peso, String transportadora) {
+
+        EntregaStrategy strategy;
+
+        switch (transportadora.toLowerCase()) {
+            case "expressa":
+                strategy = new EntregaExpressaStrategy();
+                break;
+            case "economica":
+                strategy = new EntregaEconomicaStrategy();
+                break;
+            case "terceirizada":
+                strategy = new EntregaTercerizadaStrategy();
+                break;
+            case "externa":
+                return new TransportadoraExternaAdapter()(new TransportadoraExternaAPI()).calcularFrete(peso);
+            default:
+                throw new IllegalArgumentException("Transportadora inválida.");
+        }
+
+        return strategy.calcularFrete(peso);
+    }
+
+    public void concluirEntrega() {
+        observadores.forEach(obs -> obs.notificar("Entrega concluida."));
+    }
 }
