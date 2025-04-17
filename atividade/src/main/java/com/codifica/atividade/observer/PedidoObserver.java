@@ -1,5 +1,6 @@
 package com.codifica.atividade.observer;
 
-public interface PedidoObserver {
+public interface PedidoObserver  {
 
+    void notificar(String mensagem);
 }
