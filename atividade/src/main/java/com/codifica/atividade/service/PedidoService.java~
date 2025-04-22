@@ -9,12 +9,10 @@ import com.codifica.atividade.strategy.EntregaEconomicaStrategy;
 import com.codifica.atividade.strategy.EntregaExpressaStrategy;
 import com.codifica.atividade.strategy.EntregaStrategy;
 import com.codifica.atividade.strategy.EntregaTercerizadaStrategy;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
 public class PedidoService {
     private List<PedidoObserver> observadores;
 

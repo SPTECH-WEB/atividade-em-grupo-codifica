@@ -2,12 +2,32 @@ package com.codifica.atividade.model;
 
 public class Pedido {
 
+    private String nome;
+    private String produto;
     private Double peso;
-    private String transportadora;
+    private String tipoEntrega;
 
-    public Pedido(Double peso, String transportadora) {
+    public Pedido(String nome, String produto, Double peso, String tipoEntrega) {
+        this.nome = nome;
+        this.produto = produto;
         this.peso = peso;
-        this.transportadora = transportadora;
+        this.tipoEntrega = tipoEntrega;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getProduto() {
+        return produto;
+    }
+
+    public void setProduto(String produto) {
+        this.produto = produto;
     }
 
     public Double getPeso() {
@@ -18,11 +38,11 @@ public class Pedido {
         this.peso = peso;
     }
 
-    public String getTransportadora() {
-        return transportadora;
+    public String getTipoEntrega() {
+        return tipoEntrega;
     }
 
-    public void setTransportadora(String transportadora) {
-        this.transportadora = transportadora;
+    public void setTipoEntrega(String tipoEntrega) {
+        this.tipoEntrega = tipoEntrega;
     }
 }
